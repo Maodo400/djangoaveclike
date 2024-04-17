@@ -93,4 +93,4 @@ pytest user/
 Run a test for a specific file in a directory:
 ```shell
 pytest user/tests/test_models.py
-```
+```"# djangoaveclike" 
