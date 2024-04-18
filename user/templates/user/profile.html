@@ -1,30 +1,24 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} {% block title %} Profile {{ profile_user.username }} {% endblock title %} {% block content %}
+<h1>
+    Images proposed by {{ profile_user.username }}
+</h1>
 
-{% block title %}
-    Profile {{ profile_user.username }}
-{% endblock title %}
-
-{% block content %}
-    <h1>
-        {{ profile_user.username }}
-    </h1>
-
-    <ul class="nav justify-content-center">
-        <li class="nav-item">
-            <a href="{% url 'album:albums' profile_user.slug %}" class="btn btn-primary">
+<ul class="nav justify-content-center">
+    <li class="nav-item mb-4">
+        <a href="{% url 'album:albums' profile_user.slug %}" class="btn btn-primary">
                 Albums
             </a>
-        </li>
-    </ul>
-   
-    {% if request.user.username == profile_user.username %}
-    {% comment "" %}
-    If the user is viewing their own profile show all images.
-    {% endcomment %}
-        {% for image in profile_user.photos.all %}
-            <div class="card mb-4 text-center" style="width: 18rem;">
-                <img src="{{ image.image.url }}" alt="{{ image.name }}" class="img-card-top">
-                <div class="card-body">
+    </li>
+</ul>
+
+{% if request.user.username == profile_user.username %} {% comment "" %} If the user is viewing their own profile show all images. {% endcomment %}
+<div class="row">
+    {% for image in profile_user.photos.all %}
+    <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+        <a href="{{ image.get_absolute_url }}">
+            <div class="card h-100">
+                <img src="{{ image.image.url }}" alt="{{ image.name }}" class="card-img-top img-fluid rounded">
+                <div class="card-body text-center d-flex flex-column">
                     <a href="{{ image.get_absolute_url }}" class="card-link">
                         {{ image.name }}
                     </a>
@@ -33,16 +27,18 @@
                     </p>
                 </div>
             </div>
-        {% endfor %}
-    {% else %}
-    {% comment "" %}
-    If the user viewing the profile is not the profile owner
-    only show public images.
-    {% endcomment %}
-        {% for image in public_images %}
-            <div class="card mb-4 text-center" style="width:18rem;">
-                <img src="{{ image.image.url }}" alt="{{ image.name }}" class="img-card-top">
-                <div class="card-body">
+        </a>
+    </div>
+    {% endfor %}
+</div>
+{% else %} {% comment "" %} If the user viewing the profile is not the profile owner only show public images. {% endcomment %}
+<div class="row">
+    {% for image in public_images %}
+    <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+        <a href="{{ image.get_absolute_url }}">
+            <div class="card h-100">
+                <img src="{{ image.image.url }}" alt="{{ image.name }}" class="card-img-top img-fluid rounded">
+                <div class="card-body text-center d-flex flex-column">
                     <h5 class="card-title">
                         {{ image.name }}
                     </h5>
@@ -51,7 +47,8 @@
                     </p>
                 </div>
             </div>
-        {% endfor %}
-    {% endif %}
-
-{% endblock content %}
+        </a>
+    </div>
+    {% endfor %}
+</div>
+{% endif %} {% endblock content %}

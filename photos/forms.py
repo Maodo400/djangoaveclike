@@ -1,5 +1,5 @@
 from django import forms
-from .models import Image
+from .models import Image, ImageLikes
 from utils.forms.widgets import text_input, select_input, image_input
 
 

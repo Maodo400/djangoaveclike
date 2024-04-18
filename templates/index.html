@@ -1,24 +1,32 @@
-{% extends 'base.html' %}
-
-{% block title %}
-    Home
-{% endblock title %}
-
-{% block content %}
+{% extends 'base.html' %} {% block title %} Home {% endblock title %} {% block content %}
+<div class="row">
     {% for image in images %}
-        <div class="card mb-4 mt-4" style="width: 18rem;">
-            <img src="{{ image.image.url }}" alt="{{ image.name }}" class="img-card-top">
-            <div class="card-body text-center">
+    <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+        <div class="card h-100">
+            <img src="{{ image.image.url }}" alt="{{ image.name }}" class="card-img-top img-fluid rounded">
+            <div class="card-body text-center d-flex flex-column">
                 <h5 class="card-title">
                     {{ image.name }}
                 </h5>
                 <p class="card-text">
                     Uploaded by: <a href="{{ image.user.get_absolute_url }}" class="card-link"> {{ image.user.username }}</a>
                 </p>
-                <p class"card-text">
+                <p class="card-text">
                     Likes: {{ image.likes.count }}
                 </p>
             </div>
         </div>
+    </div>
     {% endfor %}
+</div>
 {% endblock content %}
+
+<!-- <div class="row">
+    {% for photo in photos %}
+    <div class="col-lg-3 col-md-4 col-xs-6">
+        <a href="{% url 'photo:detail' photo.id %}" class="d-block mb-4 h-100">
+            <img src="{{photo.image.url}}" class="img-fluid rounded" alt="{{photo.title}}" />
+        </a>
+    </div>
+    {% endfor %}
+</div> -->

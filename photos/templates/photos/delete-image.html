@@ -1,17 +1,31 @@
-{% extends 'base.html' %}
-
-{% block title %}
-    Delete {{ image.name }}
-{% endblock title %}
-
-{% block content %}
-    <form method="post">
-        {% csrf_token %}
-        <p>
-            Are you sure you want to delete {{ image.name }}
-        </p>
-        <button type="submit" class="btn btn-danger">
-            Delete
-        </button>
+{% extends 'base.html' %} {% block content %}
+<div class="form-group mx-auto">
+    <h2 class="text-center">
+        You are going to <span class="text-danger">delete</span>: "<i>{{ image.name }}</i
+    >
+    "
+  </h2>
+  <p class="text-center">Are you sure, you want to delete the photo ?</p>
+  <div class="form-group">
+    <form
+      action=""
+      method="post"
+      class="d-flex flex-column align-items-center justify-content-center"
+    >
+      {% csrf_token %}
+      <div class="row">
+        <div class="col">
+          <a href="image.get_absolute_url" class="btn btn-primary"
+            >Cancel</a
+          >
+        </div>
+        <div class="col">
+          <button type="submit" class="btn btn-danger">Delete</button>
+        </div>
+      </div>
+      <p>This action is irreversible</p>
     </form>
+  </div>
+</div>
+
 {% endblock content %}

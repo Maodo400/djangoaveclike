@@ -3,6 +3,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from . import views
 
+
 app_name = "photos"
 
 urlpatterns = [
@@ -14,6 +15,12 @@ urlpatterns = [
         views.DeleteImageView.as_view(),
         name="delete",
     ),
+    path(
+        "photos/<slug:slug>/image/<int:pk>/update/",
+        views.UpdateImageView.as_view(),
+        name="update",
+    ),
+
 ]
 
 if settings.DEBUG:
